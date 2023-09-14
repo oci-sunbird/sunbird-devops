@@ -28,59 +28,96 @@
   shell: "nohup {{keycloak_home}}/bin/standalone.sh -Dkeycloak.profile.feature.upload_scripts=enabled -b={{ansible_default_ipv4.address}} -bprivate={{ansible_default_ipv4.address}} --server-config standalone-ha.xml &"
   become: yes
   become_user: "{{ wildfly_user }}"
-  run_once: true
   notify: wait for keycloak to start
 
 - meta: flush_handlers
 
-- name: Install dependencies for keycloak
+# force to use python2 as a possible workaround << kenneth revert the changes as that will breaks a new install
+#- name: Install dependencies for keycloak
+#  apt:
+#    name: ["python-setuptools"]
+#    update_cache: true
+#
+#- name: Ensure python packages are installed
+#  apt: 
+#    name: ["python-pip", "python-dev"]
+#    update_cache: yes
+#  when: ansible_os_family == 'Debian' and ansible_distribution_version | float < 18
+#
+#- name: Ensure python packages are installed
+#  apt:
+#    name: ["python3-pip", "python3-dev"]
+#    update_cache: yes
+#  when: ansible_os_family == 'Debian' and ansible_distribution_version | float > 18
+
+- name: Install dependencies for keycloak (python2)
   apt:
     name: "{{ item }}"
     update_cache: true
   with_items:
-    - python-pip
+    - python-pip-whl
     - python-setuptools
+    - python-dev-is-python2
   run_once: true
+
+# not sure if this can work, but let's try
+- name: remove any existing certifi
+  pip: 
+    executable: /usr/local/bin/pip
+    name: certifi!=2021.10.8
+    state: absent
+
+- name: remove any existing certifi
+  pip:
+    executable: /usr/local/bin/pip
+    name: requests!=2.20.0
+    state: absent
+
+- name: try to add certifi 2021.10.8
+  pip:
+    executable: /usr/local/bin/pip
+    name: certifi==2021.10.8
+
+- name: try to add request 2.20.0
+  pip:
+    executable: /usr/local/bin/pip
+    name: requests==2.20.0
 
 - name: Copying python libraries
   copy:
     src: "{{ role_path }}/files/python-keycloak-0.12.0"
     dest: /tmp/
-  run_once: true
 
+# there is NO NEED to force python2 here as default python is already version 2
 - name: Initialize python library to run keycloak bootstrap script
-  shell: cd /tmp/python-keycloak-0.12.0 && python setup.py install
-  run_once: true
+  shell: cd /tmp/python-keycloak-0.12.0 &&  python2 setup.py install
 
 - name: Save keycloak vars to json
   template:
     src: "keycloak-bootstrap.conf.j2"
     dest: "/tmp/keycloak-bootstrap.conf.json"
     mode: "0644"
-  run_once: true
 
 - name: Copy realm json file to tmp location
   template:
     src: "keycloak-realm.j2"
     dest: "/tmp/keycloak-realm.json"
     mode: "0644"
-  run_once: true
 
 - name: Copy user manager roles file to tmp location
   copy:
     src: "files/python-keycloak-0.12.0/roles.json"
     dest: "/tmp/roles.json"
     mode: "0644"
-  run_once: true
 
 - name: Copy the keycloak bootstrap script
   copy:
     src: "{{ role_path }}/files/python-keycloak-0.12.0/keycloak"
     dest: /tmp
-  run_once: true
 
+# there is no need to force python2 here as default python is already 2
 - name: Run the keycloak bootstrap script
-  shell: cd /tmp/keycloak/ && python keycloak_main.py /tmp/keycloak-bootstrap.conf.json
+  shell: cd /tmp/keycloak/ &&  python2 keycloak_main.py /tmp/keycloak-bootstrap.conf.json
   register: out
   until: '"404" not in out.stderr'
   retries: 2
