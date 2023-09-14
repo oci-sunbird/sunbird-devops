@@ -19,9 +19,9 @@
     remote_src: yes
 
 - name: install oci cli
-  shell: ./oci-cli-installation/install.sh --install-dir {{ ansible_env.HOME }} --exec-dir {{ ansible_env.HOME }} --script-dir {{ ansible_env.HOME }} --accept-all-defaults
+  shell: ./oci-cli-installation/install.sh --install-dir {{ oci_cli_install_dir }} --exec-dir {{ oci_cli_install_dir }} --script-dir {{ oci_cli_install_dir }} --accept-all-defaults
   args:
     chdir: /tmp/
 
 - name: Move oci to /usr/local/bin
-  shell: mv {{ ansible_env.HOME }}/oci /usr/local/bin
+  shell: mv {{ oci_cli_install_dir }}/oci /usr/local/bin
