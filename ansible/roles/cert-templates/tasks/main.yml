@@ -31,19 +31,31 @@
     chdir: "{{cert_location}}/cert-templates/certUtilScripts/"
   when: createPublicKey is defined
 
-- name: Ensure azure blob storage container exists
-  command: az storage container create  --name {{cert_service_container_name}} --public-access off
-  environment:
-    AZURE_STORAGE_ACCOUNT: "{{sunbird_private_storage_account_name}}"
-    AZURE_STORAGE_KEY: "{{sunbird_private_storage_account_key}}"
+# - name: Ensure azure blob storage container exists
+#   command: az storage container create  --name {{cert_service_container_name}} --public-access off
+#   environment:
+#     AZURE_STORAGE_ACCOUNT: "{{sunbird_private_storage_account_name}}"
+#     AZURE_STORAGE_KEY: "{{sunbird_private_storage_account_key}}"
 
-- name: Upload to azure blob storage
-  command: az storage blob upload-batch --destination {{cert_service_container_name}} --source "out"
-  args:
-    chdir: "{{cert_location}}/cert-templates/certUtilScripts/"
+# - name: Upload to azure blob storage
+#   command: az storage blob upload-batch --destination {{cert_service_container_name}} --source "out"
+#   args:
+#     chdir: "{{cert_location}}/cert-templates/certUtilScripts/"
+#   environment:
+#     AZURE_STORAGE_ACCOUNT: "{{sunbird_private_storage_account_name}}"
+#     AZURE_STORAGE_KEY: "{{sunbird_private_storage_account_key}}"
+#   async: 60
+#   poll: 10
+
+- name: Ensure OCI OSS storage container exists
+  command: oci os bucket get --name {{ cert_service_container_name }}
   environment:
-    AZURE_STORAGE_ACCOUNT: "{{sunbird_private_storage_account_name}}"
-    AZURE_STORAGE_KEY: "{{sunbird_private_storage_account_key}}"
+    OCI_CLI_AUTH: "instance_principal"
+
+- name: Upload to OCI OSS storage
+  command: oci os object bulk-upload -bn {{ oss_bucket_name }} --prefix {{oss_path}} --src-dir {{cert_location}}/cert-templates/certUtilScripts/out --content-type auto --overwrite
+  environment:
+    OCI_CLI_AUTH: "instance_principal"
   async: 60
   poll: 10
 
