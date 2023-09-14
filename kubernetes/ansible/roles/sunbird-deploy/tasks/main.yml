@@ -94,9 +94,6 @@
 - set_fact:
    metadata_image: "{{ image_name }}:{{ image_tag }}"
 
-- debug: var=metadata_image
-  run_once: true   
-
 - name: Compare deployed image and metadata_image
   fail:
   when: deployed_image.stdout != metadata_image
