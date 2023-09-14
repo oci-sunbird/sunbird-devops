@@ -53,7 +53,7 @@
     OCI_CLI_AUTH: "instance_principal"
 
 - name: Upload to OCI OSS storage
-  command: oci os object bulk-upload -bn {{ oss_bucket_name }} --prefix {{oss_path}} --src-dir {{cert_location}}/cert-templates/certUtilScripts/out --content-type auto --overwrite
+  command: oci os object bulk-upload -bn {{ cert_service_container_name  }} --prefix {{oss_path}} --src-dir {{cert_location}}/cert-templates/certUtilScripts/out --content-type auto --overwrite
   environment:
     OCI_CLI_AUTH: "instance_principal"
   async: 60
