@@ -4,8 +4,7 @@
   vars_files:
     - "{{inventory_dir}}/secrets.yml"
   environment:
-        AZURE_STORAGE_ACCOUNT: "{{ sunbird_public_storage_account_name }}"
-        AZURE_STORAGE_SAS_TOKEN: "{{ sunbird_public_storage_account_sas  }}"
+    OCI_CLI_AUTH: "instance_principal" 
   tasks:
     - name: rename env_domain in preview_cdn.html for CDN
       shell: |
@@ -15,34 +14,56 @@
       tags:
         - preview
 
-    - name: delete batch
-      shell: |
-        azcopy rm "https://{{ sunbird_public_storage_account_name }}.blob.core.windows.net/{{ plugin_container_name }}/{{ folder_name }}{{sunbird_public_storage_account_sas}}" --recursive=true
-      async: 3600
-      poll: 10
+    - name: set common oci variables
+      set_fact:
+        oss_bucket_name: "{{ plugin_container_name }}"
+        oss_namespace: "{{ oci_namespace }}"
+      tags:
+        - always
+
+    - name: delete files and folders from oci oss
+      include_role:
+        name: oci-cloud-storage
+        apply:
+         environment:
+          OCI_CLI_AUTH: "instance_principal"  
+        tasks_from: delete-folder.yml
+      vars:
+          oss_path: "{{ folder_name }}/"
       tags:
         - content-editor
         - collection-editor
         - generic-editor
         - preview
 
-    - name: upload batch
-      command: "az storage blob upload-batch --destination {{ plugin_container_name }}/{{ folder_name }} --source {{ source_name }}"
-      async: 3600
-      poll: 10
+    - name: upload batch to oci oss
+      include_role:
+        name: oci-cloud-storage
+        apply:
+         environment:
+          OCI_CLI_AUTH: "instance_principal"  
+        tasks_from: upload-folder.yml
+      vars:
+        oss_path: "{{ folder_name }}/"
+        local_file_or_folder_path: "{{ source_name }}"
       tags:
         - content-editor 
         - collection-editor
         - generic-editor
         - preview
         - editor
-        - core-plugins
-  
+        - core-plugins  
 
-    - name: upload file
-      command: "az storage blob upload --container-name {{ plugin_container_name }} --file {{ source_file_name }} --name artefacts/content-player/content-player-{{ player_version_number }}.zip"
-      async: 3600
-      poll: 10  
+    - name: upload file to oci oss
+      include_role:
+        name: oci-cloud-storage
+        apply:
+         environment:
+          OCI_CLI_AUTH: "instance_principal"  
+        tasks_from: upload.yml
+      vars:
+        oss_path: "artefacts/content-player/content-player-{{ player_version_number }}.zip"
+        local_file_or_folder_path: "{{ source_file_name }}"
       tags:
         - preview
 
@@ -52,3 +73,19 @@
       poll: 10
       tags:
         - plugins
+
+    # - name: delete and re-upload plugins for oci
+    #   include_role:
+    #     name: oci-cloud-storage
+    #     apply:
+    #      environment:
+    #       OCI_CLI_AUTH: "instance_principal"  
+    #     tasks_from: "{{ item[0] }}"
+    #   vars:
+    #     object_prefix: "content-plugins/{{ item[1] }}/"
+    #     local_file_or_folder_path: "{{ source_folder }}/{{ item[1] }}"
+    #   with_nested:
+    #     - ['oss-delete-batch-no-poll.yml', 'oss-upload-batch-no-poll.yml']
+    #     - "{{ lookup('file', plugins_to_delete_and_upload).split('\n') }}"
+    #   tags:
+    #     - plugins
