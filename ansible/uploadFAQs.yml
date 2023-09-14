@@ -6,8 +6,7 @@
     container_name: "{{ blob_container }}"
     destination_path: "{{ blob_container }}"
   environment:
-    AZURE_STORAGE_ACCOUNT: "{{ sunbird_public_storage_account_name }}"
-    AZURE_STORAGE_KEY: "{{ sunbird_public_storage_account_key }}"
+    OCI_CLI_AUTH: "instance_principal"
   tasks:
     - name: upload files
       include_role:
