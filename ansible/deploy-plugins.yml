@@ -67,25 +67,25 @@
       tags:
         - preview
 
-    - name:  run az_copy.sh
-      shell: "bash {{ az_file_path }} {{ plugin_container_name }} {{ source_file }}"
-      async: 3600
-      poll: 10
-      tags:
-        - plugins
-
-    # - name: delete and re-upload plugins for oci
-    #   include_role:
-    #     name: oci-cloud-storage
-    #     apply:
-    #      environment:
-    #       OCI_CLI_AUTH: "instance_principal"  
-    #     tasks_from: "{{ item[0] }}"
-    #   vars:
-    #     object_prefix: "content-plugins/{{ item[1] }}/"
-    #     local_file_or_folder_path: "{{ source_folder }}/{{ item[1] }}"
-    #   with_nested:
-    #     - ['oss-delete-batch-no-poll.yml', 'oss-upload-batch-no-poll.yml']
-    #     - "{{ lookup('file', plugins_to_delete_and_upload).split('\n') }}"
+    # - name:  run az_copy.sh
+    #   shell: "bash {{ az_file_path }} {{ plugin_container_name }} {{ source_file }}"
+    #   async: 3600
+    #   poll: 10
     #   tags:
     #     - plugins
+
+    - name: delete and re-upload plugins for oci
+      include_role:
+        name: oci-cloud-storage
+        apply:
+         environment:
+          OCI_CLI_AUTH: "instance_principal"  
+        tasks_from: "{{ item[0] }}"
+      vars:
+        object_prefix: "content-plugins/{{ item[1] }}/"
+        local_file_or_folder_path: "{{ source_folder }}/{{ item[1] }}"
+      with_nested:
+        - ['oss-delete-batch-no-poll.yml', 'oss-upload-batch-no-poll.yml']
+        - "{{ lookup('file', plugins_to_delete_and_upload).split('\n') }}"
+      tags:
+        - plugins
