@@ -32,4 +32,7 @@ webhooks:
         namespace: {{ $.Release.Namespace }}
         name: {{ template "prometheus-operator.operator.fullname" $ }}
         path: /admission-prometheusrules/mutate
+    timeoutSeconds: {{ .Values.prometheusOperator.admissionWebhooks.timeoutSeconds }}
+    admissionReviewVersions: ["v1beta1", "v1"] 
+    sideEffects: None
 {{- end }}
