@@ -28,7 +28,9 @@ cassandra_forms(){
     wget "$forms"
     printf "\n"
     echo -e "\e[0;32m${bold}Import forms ${normal}"
-    /var/lib/jenkins/.local/bin/cqlsh $cassandra 9042 -e "COPY qmzbm_form_service.form_data FROM 'forms.csv' WITH HEADER = true AND CHUNKSIZE = 1;"
+   #/var/lib/jenkins/.local/bin/cqlsh $cassandra 9042 -e "COPY qmzbm_form_service.form_data FROM 'forms.csv' WITH HEADER = true AND CHUNKSIZE = 1;"
+   ## Download from https://dlcdn.apache.org/cassandra/3.11.16/apache-cassandra-3.11.16-bin.tar.gz
+    /var/lib/jenkins/tmp/apache-cassandra-3.11.16/bin/cqlsh $cassandra 9042 -e "COPY qmzbm_form_service.form_data FROM 'forms.csv' WITH HEADER = true AND CHUNKSIZE = 1;"
     rm forms.csv
 }
 
