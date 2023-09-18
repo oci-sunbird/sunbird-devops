@@ -14,7 +14,7 @@ cassandra=$9
 knowledge_platform_tag=${10}
 forms=https://sunbirdpublic.blob.core.windows.net/installation/forms.csv
 x_authenticated_token=""
-organisation=""
+organisation="0138860926413455360"
 creator=""
 reviewer=""
 orgadmin=""
@@ -259,7 +259,7 @@ create_other_categories(){
     printf "\n\n"
     echo -e "\e[0;32m${bold}Create other categories ${normal}"
     git clone https://github.com/project-sunbird/knowledge-platform.git -b ${knowledge_platform_tag}
-    cd knowledge-platform/definition-scripts
+    cd knowledge-platform/scripts/definition-scripts
     sed -i "s#{{host}}#http://${private_ingressgateway_ip}/taxonomy#g" *
     sed -i "s#curl#curl -sS#g" *
     while read -r line; do printf "\n\n" >> /tmp/all_category_create.sh && cat $line >> /tmp/all_category_create.sh; done <<< $(ls)
@@ -677,10 +677,10 @@ printf "\n\n"
 
 #cassandra_forms
 get_x_authenticated_token
-create_organisation
-create_master_categories
-create_default_licenses
-create_default_channel_license
+# create_organisation
+# create_master_categories
+# create_default_licenses
+# create_default_channel_license
 create_other_categories
 system_settings
 create_users
