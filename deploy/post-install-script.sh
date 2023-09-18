@@ -675,7 +675,7 @@ echo -e "\e[0;90m${bold}cassandra-1: $cassandra ${normal}"
 echo -e "\e[0;90m${bold}knowledge-platform-tag: $knowledge_platform_tag ${normal}"
 printf "\n\n"
 
-cassandra_forms
+#cassandra_forms
 get_x_authenticated_token
 create_organisation
 create_master_categories
