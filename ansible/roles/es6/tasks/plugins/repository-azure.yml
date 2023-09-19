@@ -2,7 +2,7 @@
 - name: Add default azure account name for backups
   become: yes
   shell: echo "{{ cloud_management_storage_accountname }}" | {{ es_home }}/bin/elasticsearch-keystore add -f azure.client.default.account
-  no_log: False
+  no_log: True
   environment:
     ES_PATH_CONF: "{{ conf_dir }}"
 
@@ -10,6 +10,6 @@
 - name: Add default azure account key for backups
   become: yes
   shell: echo "{{ cloud_management_storage_secret }}" | {{ es_home }}/bin/elasticsearch-keystore add -f azure.client.default.key
-  no_log: False
+  no_log: True
   environment:
     ES_PATH_CONF: "{{ conf_dir }}"
