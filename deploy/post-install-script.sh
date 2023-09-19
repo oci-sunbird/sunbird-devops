@@ -90,11 +90,11 @@ create_users(){
     -H "Authorization: Bearer ${core_vault_sunbird_api_auth_token}" \
     -d '{
        "request":{
-  		   "firstName": "creator",
-  		   "lastName": "creator",
+  		   "firstName": "creator2",
+  		   "lastName": "creator2",
   		   "password": "Pass@123",
-  		   "phone": "9999911111",
-  		   "userName": "creator",
+  		   "phone": "9999933333",
+  		   "userName": "creator2",
   		   "phoneVerified": true
        }
     }' | jq -r .result.userId)
@@ -105,11 +105,11 @@ create_users(){
     -H "Authorization: Bearer ${core_vault_sunbird_api_auth_token}" \
     -d '{
        "request":{
-  		   "firstName": "reviewer",
-  		   "lastName": "reviewer",
+  		   "firstName": "reviewer2",
+  		   "lastName": "reviewer2",
   		   "password": "Pass@123",
-  		   "phone": "9999911112",
-  		   "userName": "reviewer",
+  		   "phone": "9999911114",
+  		   "userName": "reviewer2",
   		   "phoneVerified": true
        }
     }' | jq -r .result.userId)
@@ -120,11 +120,11 @@ create_users(){
     -H "Authorization: Bearer ${core_vault_sunbird_api_auth_token}" \
     -d '{
        "request":{
-  		   "firstName": "orgadmin",
-  		   "lastName": "orgadmin",
+  		   "firstName": "orgadmin2",
+  		   "lastName": "orgadmin2",
   		   "password": "Pass@123",
-  		   "phone": "9999911113",
-  		   "userName": "orgadmin",
+  		   "phone": "9999911115",
+  		   "userName": "orgadmin2",
   		   "phoneVerified": true
        }
     }' | jq -r .result.userId)
@@ -681,16 +681,16 @@ get_x_authenticated_token
 # create_master_categories
 # create_default_licenses
 # create_default_channel_license
-create_other_categories
-system_settings
+# create_other_categories
+# system_settings
 create_users
 assign_roles
-create_framework
-create_framework_categories
-create_framework_terms
-publish_framework
-tenant_preference
-create_location
+# create_framework
+# create_framework_categories
+# create_framework_terms
+# publish_framework
+# tenant_preference
+# create_location
 
 printf "\n\n"
 echo -e "\e[0;31m${bold}Please verify all the API calls are successful. If there are any failures, check the script / output and fix the issues${normal}"
