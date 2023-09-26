@@ -1,5 +1,9 @@
 {{- if and .Values.prometheusOperator.admissionWebhooks.enabled }}
+{{- if  (.Capabilities.APIVersions.Has "admissionregistration.k8s.io/v1") }}
+apiVersion: admissionregistration.k8s.io/v1
+{{ else }}
 apiVersion: admissionregistration.k8s.io/v1beta1
+{{- end }}
 kind: ValidatingWebhookConfiguration
 metadata:
   name:  {{ template "prometheus-operator.fullname" . }}-admission
@@ -28,4 +32,7 @@ webhooks:
         namespace: {{ $.Release.Namespace }}
         name: {{ template "prometheus-operator.operator.fullname" $ }}
         path: /admission-prometheusrules/validate
+    timeoutSeconds: {{ .Values.prometheusOperator.admissionWebhooks.timeoutSeconds }}      
+    admissionReviewVersions: ["v1beta1", "v1"]    
+    sideEffects: None
 {{- end }}

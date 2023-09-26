@@ -1,0 +1,27 @@
+---
+- name: Download the installation file
+  get_url:
+    url: "{{ oci_cli_url }}"
+    dest: /tmp/ocicli.zip
+
+- name: Installing unzip
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - zip
+    - unzip
+
+- name: Unzip the installer
+  unarchive:
+    src: /tmp/ocicli.zip
+    dest: /tmp/
+    remote_src: yes
+
+- name: install oci cli
+  shell: ./oci-cli-installation/install.sh --install-dir {{ oci_cli_install_dir }} --exec-dir {{ oci_cli_install_dir }} --script-dir {{ oci_cli_install_dir }} --accept-all-defaults
+  args:
+    chdir: /tmp/
+
+- name: Move oci to /usr/local/bin
+  shell: mv {{ oci_cli_install_dir }}/oci /usr/local/bin
