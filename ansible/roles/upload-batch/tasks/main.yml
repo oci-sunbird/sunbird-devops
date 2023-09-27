@@ -1,8 +1,8 @@
 ---
-- name: Ensure azure blob storage container exists
-  command: az storage container create --name {{ container_name }} --public-access container
+- name: Ensure oci oss bucket exists
+  command: oci os bucket get --name {{ artifacts_container }}
 
-- name: Upload to azure blob storage
-  command: az storage blob upload-batch --destination {{ destination_path }} --source {{ source_path }}
+- name: Upload folder to oci oss bucket
+  command: oci os object bulk-upload -bn {{ artifacts_container }} --prefix {{destination_path}} --src-dir {{ source_path }} --content-type auto --overwrite
   async: 3600
-  poll: 10
+  poll: 10 

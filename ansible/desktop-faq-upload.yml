@@ -7,10 +7,9 @@
     artifact: "{{destination_path}}"
     artifact_path: "{{playbook_dir}}/../{{src_file_path}}"
   environment:
-    AZURE_STORAGE_ACCOUNT: "{{ sunbird_public_storage_account_name }}"
-    AZURE_STORAGE_KEY: "{{ sunbird_public_storage_account_key }}"
+    OCI_CLI_AUTH: "instance_principal"
   roles:
-    - artifacts-upload-azure
+    - artifacts-upload-oci
   tags:
     - upload-desktop-faq
  
@@ -24,10 +23,9 @@
     artifact: "{{destination_path}}"
     artifact_path: "{{playbook_dir}}/../{{src_file_path}}"
   environment:
-    AZURE_STORAGE_ACCOUNT: "{{ sunbird_private_storage_account_name }}"
-    AZURE_STORAGE_KEY: "{{ sunbird_private_storage_account_key }}"
+    OCI_CLI_AUTH: "instance_principal"
   roles:
-    - artifacts-upload-azure
+    - artifacts-upload-oci
   tags:
     - upload-label
 
@@ -40,8 +38,7 @@
     destination_path: "{{destination_path}}"
     container_name: "{{desktop_container}}"
   environment:
-    AZURE_STORAGE_ACCOUNT: "{{ sunbird_public_storage_account_name }}"
-    AZURE_STORAGE_KEY: "{{ sunbird_public_storage_account_key }}"
+    OCI_CLI_AUTH: "instance_principal"
   roles:
     - upload-batch
   tags:

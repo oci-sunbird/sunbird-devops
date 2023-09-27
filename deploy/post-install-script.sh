@@ -14,7 +14,7 @@ cassandra=$9
 knowledge_platform_tag=${10}
 forms=https://sunbirdpublic.blob.core.windows.net/installation/forms.csv
 x_authenticated_token=""
-organisation=""
+organisation="0138860926413455360"
 creator=""
 reviewer=""
 orgadmin=""
@@ -28,7 +28,9 @@ cassandra_forms(){
     wget "$forms"
     printf "\n"
     echo -e "\e[0;32m${bold}Import forms ${normal}"
-    /var/lib/jenkins/.local/bin/cqlsh $cassandra 9042 -e "COPY qmzbm_form_service.form_data FROM 'forms.csv' WITH HEADER = true AND CHUNKSIZE = 1;"
+   #/var/lib/jenkins/.local/bin/cqlsh $cassandra 9042 -e "COPY qmzbm_form_service.form_data FROM 'forms.csv' WITH HEADER = true AND CHUNKSIZE = 1;"
+   ## Download from https://dlcdn.apache.org/cassandra/3.11.16/apache-cassandra-3.11.16-bin.tar.gz
+    /var/lib/jenkins/tmp/apache-cassandra-3.11.16/bin/cqlsh $cassandra 9042 -e "COPY qmzbm_form_service.form_data FROM 'forms.csv' WITH HEADER = true AND CHUNKSIZE = 1;"
     rm forms.csv
 }
 
@@ -88,11 +90,11 @@ create_users(){
     -H "Authorization: Bearer ${core_vault_sunbird_api_auth_token}" \
     -d '{
        "request":{
-  		   "firstName": "creator",
-  		   "lastName": "creator",
+  		   "firstName": "creator2",
+  		   "lastName": "creator2",
   		   "password": "Pass@123",
-  		   "phone": "9999911111",
-  		   "userName": "creator",
+  		   "phone": "9999933333",
+  		   "userName": "creator2",
   		   "phoneVerified": true
        }
     }' | jq -r .result.userId)
@@ -103,11 +105,11 @@ create_users(){
     -H "Authorization: Bearer ${core_vault_sunbird_api_auth_token}" \
     -d '{
        "request":{
-  		   "firstName": "reviewer",
-  		   "lastName": "reviewer",
+  		   "firstName": "reviewer2",
+  		   "lastName": "reviewer2",
   		   "password": "Pass@123",
-  		   "phone": "9999911112",
-  		   "userName": "reviewer",
+  		   "phone": "9999911114",
+  		   "userName": "reviewer2",
   		   "phoneVerified": true
        }
     }' | jq -r .result.userId)
@@ -118,11 +120,11 @@ create_users(){
     -H "Authorization: Bearer ${core_vault_sunbird_api_auth_token}" \
     -d '{
        "request":{
-  		   "firstName": "orgadmin",
-  		   "lastName": "orgadmin",
+  		   "firstName": "orgadmin2",
+  		   "lastName": "orgadmin2",
   		   "password": "Pass@123",
-  		   "phone": "9999911113",
-  		   "userName": "orgadmin",
+  		   "phone": "9999911115",
+  		   "userName": "orgadmin2",
   		   "phoneVerified": true
        }
     }' | jq -r .result.userId)
@@ -257,7 +259,7 @@ create_other_categories(){
     printf "\n\n"
     echo -e "\e[0;32m${bold}Create other categories ${normal}"
     git clone https://github.com/project-sunbird/knowledge-platform.git -b ${knowledge_platform_tag}
-    cd knowledge-platform/definition-scripts
+    cd knowledge-platform/scripts/definition-scripts
     sed -i "s#{{host}}#http://${private_ingressgateway_ip}/taxonomy#g" *
     sed -i "s#curl#curl -sS#g" *
     while read -r line; do printf "\n\n" >> /tmp/all_category_create.sh && cat $line >> /tmp/all_category_create.sh; done <<< $(ls)
@@ -673,22 +675,22 @@ echo -e "\e[0;90m${bold}cassandra-1: $cassandra ${normal}"
 echo -e "\e[0;90m${bold}knowledge-platform-tag: $knowledge_platform_tag ${normal}"
 printf "\n\n"
 
-cassandra_forms
+#cassandra_forms
 get_x_authenticated_token
-create_organisation
-create_master_categories
-create_default_licenses
-create_default_channel_license
-create_other_categories
-system_settings
+# create_organisation
+# create_master_categories
+# create_default_licenses
+# create_default_channel_license
+# create_other_categories
+# system_settings
 create_users
 assign_roles
-create_framework
-create_framework_categories
-create_framework_terms
-publish_framework
-tenant_preference
-create_location
+# create_framework
+# create_framework_categories
+# create_framework_terms
+# publish_framework
+# tenant_preference
+# create_location
 
 printf "\n\n"
 echo -e "\e[0;31m${bold}Please verify all the API calls are successful. If there are any failures, check the script / output and fix the issues${normal}"
