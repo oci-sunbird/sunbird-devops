@@ -42,7 +42,7 @@
     - "{{ WORKDIR }}/faust_as_service"
 
 - name: Change user and create working directory under opt dir and install python virtual environment
-  shell: "cd {{ WORKDIR }} && virtualenv --python=python3.8 spark_venv"
+  shell: "cd {{ WORKDIR }} && virtualenv --python=python3.6 spark_venv"
   become: true
 
 - name: Create necessary logs folders for pipeline
