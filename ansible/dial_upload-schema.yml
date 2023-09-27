@@ -6,6 +6,7 @@
   environment:
         AZURE_STORAGE_ACCOUNT: "{{ sunbird_public_storage_account_name }}"
         AZURE_STORAGE_SAS_TOKEN: "{{ sunbird_public_storage_account_sas }}"
+        OCI_CLI_AUTH: "instance_principal"
   tasks:
     - name: Create directories
       file:
@@ -23,8 +24,12 @@
       with_filetree: "{{ source_name }}"
       when: item.state == 'file'
             
-    - name: upload batch
-      command: "az storage blob upload-batch --destination {{ dial_plugin_container_name }}/schemas/local --source dial_schema_template_files"
-      async: 3600
-      poll: 10
+    # - name: upload batch
+    #   command: "az storage blob upload-batch --destination {{ dial_plugin_container_name }}/schemas/local --source dial_schema_template_files"
+    #   async: 3600
+    #   poll: 10
 
+    - name: upload batch to oci oss bucket
+      command: oci os object bulk-upload -bn {{ dial_plugin_container_name }} --prefix {{ dial_plugin_container_name }}/schemas/local --src-dir dial_schema_template_files --content-type auto --overwrite
+      async: 3600
+      poll: 10 
