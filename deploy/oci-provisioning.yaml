@@ -181,33 +181,43 @@
     tags:
       - identity
 
-  - name: Create auth_token
-    oci_identity_auth_token:
-      # required
-      description: For sunbird ocir
-      user_id: "{{user_id}}"
-    register: result
-    tags:
-      - identity
-  - set_fact:
-      auth_token: "{{ result.auth_token.token }}"
-      cacheable: yes
+  - name: Create policy
+    oci_identity_policy:
+      compartment_id: "{{tenancy_id}}"
+      name: sunbirded-policy
+      description: Policy for Sunbird BB
+      statements: 
+      - "statements_example"
     tags:
       - identity
 
-  - name: Create customer key
-    oci_identity_customer_secret_key:
-      display_name: For sunbird s3 operation
-      user_id: "{{user_id}}"
-    register: customer_key
-    tags:
-      - identity
-  - set_fact:
-      s3_access_key: "{{ customer_key.customer_secret_key.id }}"
-      s3_access_secret: "{{ customer_key.customer_secret_key.key }}"
-      cacheable: yes
-    tags:
-      - identity
+  # - name: Create auth_token
+  #   oci_identity_auth_token:
+  #     # required
+  #     description: For sunbird ocir
+  #     user_id: "{{user_id}}"
+  #   register: result
+  #   tags:
+  #     - identity
+  # - set_fact:
+  #     auth_token: "{{ result.auth_token.token }}"
+  #     cacheable: yes
+  #   tags:
+  #     - identity
+
+  # - name: Create customer key
+  #   oci_identity_customer_secret_key:
+  #     display_name: For sunbird s3 operation
+  #     user_id: "{{user_id}}"
+  #   register: customer_key
+  #   tags:
+  #     - identity
+  # - set_fact:
+  #     s3_access_key: "{{ customer_key.customer_secret_key.id }}"
+  #     s3_access_secret: "{{ customer_key.customer_secret_key.key }}"
+  #     cacheable: yes
+  #   tags:
+  #     - identity
 
   - name: Showing resources info
     debug:
