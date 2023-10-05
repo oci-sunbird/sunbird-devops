@@ -197,7 +197,7 @@
 
   - name: Create customer key
     oci_identity_customer_secret_key:
-      description: For sunbird s3 operation
+      display_name: For sunbird s3 operation
       user_id: "{{user_id}}"
     register: customer_key
     tags:
