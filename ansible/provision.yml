@@ -40,7 +40,7 @@
   become: yes
   vars:
     # Ref: https://github.com/geerlingguy/ansible-role-postgresql/issues/136
-    ansible_python_interpreter: "/usr/bin/python3" 
+    ansible_python_interpreter: "/usr/bin/python" 
     postgresql_global_config_options:
     - option: listen_addresses
       value: "{{ ansible_default_ipv4.address }}"
@@ -51,12 +51,6 @@
       become: yes
       apt:
         name: ['acl', 'python-psycopg2']
-      when: ansible_distribution_version | float < 20
-    - name: install setfacl support
-      become: yes
-      apt:
-        name: ['acl', 'python-psycopg3']
-      when: ansible_distribution_version | float > 20
   roles:
     - postgresql
   tags:
