@@ -5,6 +5,10 @@
   pre_tasks:
     - name: Python predependency
       raw: bash -c "test -e /usr/bin/python" || (sudo apt update && sudo apt install -y  python)
+      when: ansible_distribution_version | float < 18
+    - name: Python predependency
+      raw: bash -c "test -e /usr/bin/python" || (sudo apt update && sudo apt install -y  python3)
+      when: ansible_distribution_version | float > 18    
     - name: Installing other packages
       apt:
         state: present
