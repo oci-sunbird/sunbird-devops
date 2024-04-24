@@ -13,10 +13,10 @@
 #       }
 #   with_items: "{{ custodian_org_data }}"
 
-- name: Restarting leaner service
-  shell: |
-    kubectl rollout restart deployment -n {{ namespace }} learner
-    kubectl rollout status deployment -n {{ namespace }} learner
+# - name: Restarting leaner service
+#   shell: |
+#     kubectl rollout restart deployment -n {{ namespace }} learner
+#     kubectl rollout status deployment -n {{ namespace }} learner
 
 - name: Crating Users
   uri:
