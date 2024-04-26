@@ -1645,12 +1645,19 @@ district_id: ""
 block_id: ""
 cluster_id: ""
 
-location_data:
-  state: { "code": "KL", "name": "KERALA", "type": "state" }
-  district: { "code": "TRV", "name": "Trivandrum", "type": "district", "parentId": "{{ state_id }}" }
-  block: { "code": "BLK", "name": "block", "type": "block", "parentId": "{{ district_id }}" }
-  cluster: { "code": "CLS", "name": "Cluster", "type": "cluster", "parentId": "{{ block_id }}" }
+# India specific
+# location_data:
+#   state: { "code": "KL", "name": "KERALA", "type": "state" }
+#   district: { "code": "TRV", "name": "Trivandrum", "type": "district", "parentId": "{{ state_id }}" }
+#   block: { "code": "BLK", "name": "block", "type": "block", "parentId": "{{ district_id }}" }
+#   cluster: { "code": "CLS", "name": "Cluster", "type": "cluster", "parentId": "{{ block_id }}" }
 
+# PNG specific
+location_data:
+  state: { "code": "EH", "name": "Eastern Highlands", "type": "state" }
+  district: { "code": "GRK", "name": "Goroka", "type": "district", "parentId": "{{ state_id }}" }
+  block: { "code": "GRKU", "name": "Goroka Urban", "type": "block", "parentId": "{{ district_id }}" }
+  cluster: { "code": "BHT", "name": "Bihute", "type": "cluster", "parentId": "{{ block_id }}" }
 
 ## Note:
 #
