@@ -1620,16 +1620,16 @@ framework_category:
 
 
 framework_terms:
-  - key: "board"
-    term: { "name": "NCF", "code": "ncf" }
-  - key: "medium"
-    term: { "name": "English", "code": "english" }
-  - key: "subject"
-    term: { "name": "English", "code": "english" }
+#   - key: "board"
+#     term: { "name": "NCF", "code": "ncf" }
+#   - key: "medium"
+#     term: { "name": "English", "code": "english" }
+#   - key: "subject"
+#     term: { "name": "English", "code": "english" }
   - key: "subject"
     term: { "name": "Mathematics", "code": "maths" }
-  - key: "gradeLevel"
-    term: { "name": "Class 1", "code": "class1" }
+#   - key: "gradeLevel"
+#     term: { "name": "Class 1", "code": "class1" }
   - key: "gradeLevel"
     term: { "name": "Grade 8", "code": "grade8" }
 custodian_org_data:
