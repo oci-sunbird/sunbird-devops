@@ -3148,8 +3148,8 @@ forms:
                                         "Province (Eastern Highlands)"
                                     ]
                                 }
-                            },
-                        ]
+                            }
+                        ],
                         "theme": {
                             "component": "sb-pills-grid",
                             "limit": 10,
