@@ -8624,3 +8624,83 @@ forms:
             "created_on": "2020-06-17T07:28:09.503Z",
             "last_modified_on": "2020-10-09T08:55:55.308Z",
             "rootOrgId": "*"
+
+  form25: |-
+            "type": "user",
+            "subType": "admin_framework",
+            "action": "create",
+            "component": "*",
+            "framework": "*",
+            "data": {
+                "templateName": "defaultTemplate",
+                "action": "create",
+                "fields": [
+                    {
+                        "code": "board",
+                        "dataType": "text",
+                        "name": "Board",
+                        "label": "Board",
+                        "description": "Education Board (Like MP Board, NCERT, etc)",
+                        "editable": true,
+                        "inputType": "multi-select",
+                        "required": true,
+                        "displayProperty": "Editable",
+                        "visible": true,
+                        "renderingHints": {
+                            "semanticColumnWidth": "four"
+                        },
+                        "index": 1
+                    },
+                    {
+                        "code": "medium",
+                        "dataType": "text",
+                        "name": "Medium",
+                        "label": "Medium",
+                        "description": "Medium of instruction",
+                        "editable": true,
+                        "inputType": "multi-select",
+                        "required": false,
+                        "displayProperty": "Editable",
+                        "visible": true,
+                        "renderingHints": {
+                            "semanticColumnWidth": "four"
+                        },
+                        "index": 2
+                    },
+                    {
+                        "code": "gradeLevel",
+                        "dataType": "text",
+                        "name": "Class",
+                        "label": "Class",
+                        "description": "Grade",
+                        "editable": true,
+                        "inputType": "multi-select",
+                        "required": false,
+                        "displayProperty": "Editable",
+                        "visible": true,
+                        "renderingHints": {
+                            "semanticColumnWidth": "four"
+                        },
+                        "index": 3
+                    },
+                    {
+                        "code": "subject",
+                        "dataType": "text",
+                        "name": "Subject",
+                        "label": "Subject",
+                        "description": "Subject of the Content to use to teach",
+                        "editable": true,
+                        "inputType": "multi-select",
+                        "required": false,
+                        "displayProperty": "Editable",
+                        "visible": false,
+                        "renderingHints": {
+                            "semanticColumnWidth": "four"
+                        },
+                        "index": 4
+                    }
+                ]
+            },
+            "created_on": "2021-12-28T09:28:49.255Z",
+            "last_modified_on": null,
+            "rootOrgId": "*"
