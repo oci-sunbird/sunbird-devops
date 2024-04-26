@@ -1626,12 +1626,12 @@ framework_terms:
 #     term: { "name": "English", "code": "english" }
 #   - key: "subject"
 #     term: { "name": "English", "code": "english" }
-  - key: "subject"
-    term: { "name": "Mathematics", "code": "maths" }
+#   - key: "subject"
+#     term: { "name": "Mathematics", "code": "maths" }
 #   - key: "gradeLevel"
 #     term: { "name": "Class 1", "code": "class1" }
   - key: "gradeLevel"
-    term: { "name": "Grade 8", "code": "grade8" }
+    term: { "name": "Grade 7", "code": "class7" }
 custodian_org_data:
   - { "id": "custodianOrgId", "field": "custodianOrgId", "value": "{{ sunbird_custodian_org_id }}" }
   - { "id": "custodianOrgChannel", "field": "custodianOrgChannel", "value": "{{ sunbird_default_channel }}" }
