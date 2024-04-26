@@ -3151,14 +3151,14 @@ forms:
                             },
                             {
                                 "index": 1,
-                                "name": "DOE-PNG",
-                                "value": "doe-png",
+                                "name": "IGOT-Health",
+                                "value": "igot-health",
                                 "searchCriteria": {
                                     "facets": [
                                         "board"
                                     ],
                                     "board": [
-                                        "DOE-PNG"
+                                        "IGOT-Health"
                                     ]
                                 }
                             },
@@ -3612,7 +3612,7 @@ forms:
                             "colorMapping": [],
                             "icons": {
                                 "cbse": "https://diksha.gov.in/cbse/cbse-logo.png",
-                                "doe-png": "https://www.education.gov.pg/images/Department%20Logo.png",
+                                "igot-health": "https://diksha.gov.in/igot/logo.png",
                                 "state (arunachal pradesh)": "https://diksha.gov.in/ar/logo.png",
                                 "state (andhra pradesh)": "https://diksha.gov.in/ap/logo.png",
                                 "state (assam)": "https://diksha.gov.in/as/logo.png",
