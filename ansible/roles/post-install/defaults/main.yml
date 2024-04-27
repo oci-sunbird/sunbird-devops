@@ -3141,7 +3141,7 @@ forms:
                             {
                                 "index": 0,
                                 "name": "Eastern Highlands",
-                                "value": "province (eastern highlands)",
+                                "value": "eastern highlands",
                                 "searchCriteria": {
                                     "facets": [
                                         "board"
@@ -3154,7 +3154,7 @@ forms:
                             {
                                 "index": 1,
                                 "name": "Central",
-                                "value": "province (central)",
+                                "value": "central",
                                 "searchCriteria": {
                                     "facets": [
                                         "board"
@@ -3167,7 +3167,7 @@ forms:
                             {
                                 "index": 2,
                                 "name": "East New Britain",
-                                "value": "province (east new britain)",
+                                "value": "east new britain",
                                 "searchCriteria": {
                                     "facets": [
                                         "board"
@@ -3184,9 +3184,9 @@ forms:
                             "infiniteCard": false,
                             "colorMapping": [],
                             "icons": {
-                                "province (eastern highlands)": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Flag_of_Eastern_Highlands.svg/100px-Flag_of_Eastern_Highlands.svg.png",
-                                "province (central)": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Flag_of_Central_Province%2C_Papua_New_Guinea.svg/100px-Flag_of_Central_Province%2C_Papua_New_Guinea.svg.png",
-                                "province (east new britain)": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_East_New_Britain.svg/100px-Flag_of_East_New_Britain.svg.png",
+                                "eastern highlands": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Flag_of_Eastern_Highlands.svg/100px-Flag_of_Eastern_Highlands.svg.png",
+                                "central": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Flag_of_Central_Province%2C_Papua_New_Guinea.svg/100px-Flag_of_Central_Province%2C_Papua_New_Guinea.svg.png",
+                                "east new britain": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Flag_of_East_New_Britain.svg/100px-Flag_of_East_New_Britain.svg.png",
 
                             }
                         },
