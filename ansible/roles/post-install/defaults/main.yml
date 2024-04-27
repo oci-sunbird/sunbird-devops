@@ -1632,8 +1632,10 @@ framework_terms:
 #     term: { "name": "Class 1", "code": "class1" }
 #   - key: "gradeLevel"
 #     term: { "name": "Grade 7", "code": "class7" }
-  - key: "gradeLevel"
-    term: { "name": "Class 6", "code": "class6" }
+#   - key: "gradeLevel"
+#     term: { "name": "Class 6", "code": "class6" }
+  - key: "board"
+    term: { "name": "Eastern Highlands", "code": "ehl" }
 custodian_org_data:
   - { "id": "custodianOrgId", "field": "custodianOrgId", "value": "{{ sunbird_custodian_org_id }}" }
   - { "id": "custodianOrgChannel", "field": "custodianOrgChannel", "value": "{{ sunbird_default_channel }}" }
@@ -3138,40 +3140,40 @@ forms:
                         "data": [
                             {
                                 "index": 0,
-                                "name": "Province (Eastern Highlands)",
+                                "name": "Eastern Highlands",
                                 "value": "province (eastern highlands)",
                                 "searchCriteria": {
                                     "facets": [
                                         "board"
                                     ],
                                     "board": [
-                                        "Province (Eastern Highlands)"
+                                        "Eastern Highlands"
                                     ]
                                 }
                             },
                             {
                                 "index": 1,
-                                "name": "Province (Central)",
+                                "name": "Central",
                                 "value": "province (central)",
                                 "searchCriteria": {
                                     "facets": [
                                         "board"
                                     ],
                                     "board": [
-                                        "Province (Central)"
+                                        "Central"
                                     ]
                                 }
                             },
                             {
                                 "index": 2,
-                                "name": "Province (East New Britain)",
+                                "name": "East New Britain",
                                 "value": "province (east new britain)",
                                 "searchCriteria": {
                                     "facets": [
                                         "board"
                                     ],
                                     "board": [
-                                        "Province (East New Britain)"
+                                        "East New Britain"
                                     ]
                                 }
                             }
